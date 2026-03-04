@@ -8,7 +8,7 @@ model Product {
    dynamicFields Json? 
    category    String?
    brand       String?
-   sku         String   @unique
+   sku         String?   @unique 
    stock       Int      @default(0)
    isActive    Boolean  @default(true)
    createdAt   DateTime @default(now())

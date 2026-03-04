@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import catchAsync from "../../shared/catchAsync";
 import { productService } from "./product.service";
 import sendResponse from "../../shared/sendResponse";
+import pick from "../../helper/pick";
+import httpStatus from "http-status";
 
 const createProduct = catchAsync(async (req: Request, res: Response) => {
    // console.log("data", req);
@@ -15,6 +17,35 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
    });
 });
 
+
+
+const getAllProducts = catchAsync(async (req: Request, res: Response) => {
+   // console.log("data", req.body);
+   const filters = pick(req.query, ["brand", "category","name", "searchTerm"]);
+   const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
+   const result = await productService.getAllProducts(filters, options);
+
+   sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Get AllProducts successfully!",
+      data: result,
+   });
+});
+
+const deleteFromDB = catchAsync(async (req: Request, res: Response) => {
+   const { id } = req.params;
+   const result = await productService.deleteFromDB(id);
+   sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Product deleted successfully",
+      data: result,
+   });
+});
+
 export const ProductController = {
   createProduct,
+   getAllProducts,
+   deleteFromDB,
 };

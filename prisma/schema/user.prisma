@@ -4,11 +4,11 @@ model User {
   name               String
   profilePhoto       String?
   password           String?
-  role               userRole   @default(ADMIN)
+  role               userRole   @default(USER)
   needPasswordChange Boolean    @default(true)
   status             userStatus @default(ACTIVE)
-  createAt           DateTime   @default(now())
-  updateAt           DateTime   @updatedAt
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
   admin              Admin?
   massage            Massage[]
 

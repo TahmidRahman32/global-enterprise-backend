@@ -10,10 +10,13 @@ import { productValidation } from "./product.validation";
 // import { UserRole } from "@prisma/client";
 
 const router = express.Router();
+router.get("/all", auth(userRole.ADMIN), ProductController.getAllProducts);
 
-router.post("/create", fileUploader.upload.single("file"), (req: Request, res: Response, next: NextFunction) => {
+router.post("/create", auth(userRole.ADMIN), fileUploader.upload.single("file"), (req: Request, res: Response, next: NextFunction) => {
    req.body = productValidation.productValidationSchema.parse(JSON.parse(req.body.data));
+
    return ProductController.createProduct(req, res, next);
 });
 
+router.delete("/:id", auth(userRole.ADMIN), ProductController.deleteFromDB);
 export const ProductRoutes = router;
