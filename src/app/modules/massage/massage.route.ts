@@ -15,5 +15,5 @@ const router = express.Router();
 router.get("/get-all", MassageController.getAllMassages);  
 router.get("/get/:id", MassageController.getMassageById); 
 
-router.post("/create",auth(userRole.USER), MassageController.createMassage);
+router.post("/create",auth(userRole.USER,userRole.ADMIN), MassageController.createMassage);
 export const MassageRoutes = router;

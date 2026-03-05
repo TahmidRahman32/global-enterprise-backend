@@ -10,7 +10,8 @@ import { tr } from "zod/v4/locales";
 interface IMassagePayload {
    name: string;
    description: string;
-   email: string;
+   email?: string;
+   phone?: string;
    subject: string;
 }
 
@@ -32,6 +33,7 @@ const massageCreate = async (user: IJWTPayload, payload: IMassagePayload) => {
          userId: userData.id,
          description: payload.description,
          email: payload.email,
+         phone: payload.phone,
          subject: payload.subject, // Ensure payload.subject is provided
       },
    });

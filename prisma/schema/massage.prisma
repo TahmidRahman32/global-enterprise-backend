@@ -1,7 +1,8 @@
 model Massage {
   id          String   @id @default(uuid())
   name        String
-  email       String
+  email       String?
+  phone       String?
   description String
   subject     String
   userId      String?  // If User model uses String/UUID
